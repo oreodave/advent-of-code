@@ -1,0 +1,102 @@
+#+title: 2022 advent of code
+#+author: Aryadev Chavali
+#+description: Description
+#+date: 2023-06-26
+
+Doing this ridiculously late.  Insert joke about Christmas in the summertime.
+
+* Problem 1
+:PROPERTIES:
+:header-args:lisp: :session problem_1 :tangle puzzle-1.lisp
+:END:
+Simple summing of sublists problem.  Not very difficult, though found
+out that Common Lisps semantics around parsing are kinda weird.
+** Round 1
+*** Getting input and defining the separator
+To get input, use ~uiop:read-file-string~ (comes with ASDF,
+quicklisp, so in most common lisp systems).
+#+begin_src lisp
+(defvar input (uiop:read-file-string "2022/1-input"))
+#+end_src
+
+Each "bag" in the data is separated by two newlines, so let's define
+that as a constant.
+#+begin_src lisp
+(defvar *sep (format nil "~%~%"))
+#+end_src
+*** Parse procedure for any one bag
+A bag is a set of lines of numbers representing the food in that bag.
+So all we need to do, given an input bag, is to convert each line into
+an integer.  We can use ~with-input-from-string~ to leverage
+~read-line~:
+#+begin_src lisp
+(defun parse-entity (inp)
+  (with-input-from-string (s inp)
+    (loop for line = (read-line s nil)
+          while line
+          collect (parse-integer line))))
+#+end_src
+*** Recursive procedure to parse all input
+Each bag is separated by ~*sep~, so all we need to do is:
++ search for the next separator in the input
++ parse it
++ cons what we made with a recursive call for the rest of the input
+
+#+begin_src lisp
+(defun get-lists (input)
+  (let* ((pos (search *sep input))
+         (converted (parse-entity (subseq input 0 pos))))
+    (if (null pos)
+        (list converted)
+        (cons converted
+              (get-lists (subseq input (+ pos 2)))))))
+#+end_src
+*** Get sums and sort them
+To sum each bag, we just need to perform a reduce on each list by
+~#'+~.  To sort we can use the inbuilt ~sort~ function which takes an
+ordering function.  Easy stuff.
+
+#+begin_src lisp
+(defvar sums (sort (mapcar (lambda (lst) (reduce #'+ lst)) (get-lists input))
+                   #'>))
+#+end_src
+*** Finish the round
+We want the largest sum, which is literally the top of the sorted
+list.
+#+begin_src lisp
+(format t "Round 1: ~a~%" (car sums))
+#+end_src
+** Round 2
+Not actually that much harder, we want the top 3 largest bags.  This
+is really easy, as we've already sorted the list so we just need the
+first 3 elements!  For this I use a ~destructuring-bind~ just to be
+fancy, though I could easily use a ~subseq~ instead.
+
+#+begin_src lisp
+(destructuring-bind (first second third &rest _) sums
+  (format t "Round 2: ~a,~a,~a:>~a" first second third
+          (+ first second third)))
+#+end_src
+* Problem 2
+Rock paper scissors simulation, but very basic.  You're essentially
+given a log of rounds and their outcomes, and you have to interpret
+the data and produce a scoring (based on an arbitrary metric).  Pretty
+simple once again.
+
+* Problem 3
+Kinda involved mostly because I don't have a good understanding of
+Common Lisps core library.  More involved parsing routine in order to
+find shared elements between sets.  Round 2 extends this to 3 sets,
+but some interesting extensions to the problem include going to
+arbitrary n set inclusion testing.
+
+* Problem 4
+Checking if you know how bounds work, testing if
+$[a,b]\subset{[c,d]}$.  Pretty easy maths.
+
+* Problem 5
+Basically the reason I started making this document, as it seems to be
+the first really involved problem.  I need to make a stack machine,
+interpreting an initial layout of memory and an algorithm to perform
+on the machine.  Very interesting.
+

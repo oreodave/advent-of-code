@@ -1,26 +1,26 @@
 (defvar input (uiop:read-file-string "2022/1-input"))
+
 (defvar *sep (format nil "~%~%"))
 
+(defun parse-entity (inp)
+  (with-input-from-string (s inp)
+    (loop for line = (read-line s nil)
+          while line
+          collect (parse-integer line))))
+
 (defun get-lists (input)
-  (let ((pos (search *sep input)))
-    (with-input-from-string (s (subseq input 0 pos))
-      (let ((converted
-              (loop
-                for line = (read-line s nil nil)
-                while line
-                collect (parse-integer line))))
-        (if (null pos)
-            (list converted)
-            (cons converted
-                  (get-lists (subseq input (+ pos 2)))))))))
+  (let* ((pos (search *sep input))
+         (converted (parse-entity (subseq input 0 pos))))
+    (if (null pos)
+        (list converted)
+        (cons converted
+              (get-lists (subseq input (+ pos 2)))))))
 
-(defvar sums (sort (mapcar (lambda (lst) (reduce #'+ lst)) (get-lists input)) #'>))
+(defvar sums (sort (mapcar (lambda (lst) (reduce #'+ lst)) (get-lists input))
+                   #'>))
 
-;; First challenge
-(format t "Top snacks: ~a" (car sums))
+(format t "Round 1: ~a~%" (car sums))
 
-;; Second challenge
-(let ((first (car sums))
-      (second (car (cdr sums)))
-      (third (car (cdr (cdr sums)))))
-  (format t "~a,~a,~a:>~a" first second third (+ first second third)))
+(destructuring-bind (first second third &rest _) sums
+  (format t "Round 2: ~a,~a,~a:>~a" first second third
+          (+ first second third)))

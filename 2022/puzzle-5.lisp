@@ -100,12 +100,13 @@ define this operation first!  |#
   (with-input-from-string (s instructions)
     (loop
       for line = (read-line s nil)
-      until (null line)
+      while line
       collect
       ;; Parse each instruction then move the crates!
       (destructuring-bind (n a b) (parse-instruction-str line)
         (move-crates n a b)))))
 
+;; The answer is simply the first top of each stack
 (defun first-round ()
   (setq state (default-state))
   (parse-initial-state)
