@@ -1,4 +1,4 @@
-(defvar input (uiop:read-file-string "2022/1-input"))
+(defvar input (uiop:read-file-string "1-input"))
 
 (defvar *sep (format nil "~%~%"))
 

@@ -16,7 +16,7 @@ out that Common Lisps semantics around parsing are kinda weird.
 To get input, use ~uiop:read-file-string~ (comes with ASDF,
 quicklisp, so in most common lisp systems).
 #+begin_src lisp
-(defvar input (uiop:read-file-string "2022/1-input"))
+(defvar input (uiop:read-file-string "1-input"))
 #+end_src
 
 Each "bag" in the data is separated by two newlines, so let's define

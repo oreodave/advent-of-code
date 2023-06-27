@@ -1,4 +1,4 @@
-(defvar input (uiop:read-file-string "2022/2-input"))
+(defvar input (uiop:read-file-string "2-input"))
 ;; Each newline represents a new round, which we should parse on the go
 
 (defun sensible-convert-input (str)

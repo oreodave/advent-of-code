@@ -1,4 +1,4 @@
-(defvar input (uiop:read-file-string "2022/5-input"))
+(defvar input (uiop:read-file-string "5-input"))
 
 
 ;; When we get two newlines, it means the end of the initial state and

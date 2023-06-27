@@ -1,4 +1,4 @@
-(defvar input (with-input-from-string (s (uiop:read-file-string "2022/6-input"))
+(defvar input (with-input-from-string (s (uiop:read-file-string "6-input"))
                 (read-line s nil)))
 
 (defun is-unique (lst)

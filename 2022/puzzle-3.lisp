@@ -1,4 +1,4 @@
-(defvar input (uiop:read-file-string "2022/3-input"))
+(defvar input (uiop:read-file-string "3-input"))
 
 (defun split-string-in-two (s)
   (let ((len (length s)))
