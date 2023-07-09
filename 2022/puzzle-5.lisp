@@ -1,5 +1,6 @@
 (defvar input (uiop:read-file-string "2022/5-input"))
 
+
 ;; When we get two newlines, it means the end of the initial state and
 ;; the start of instructions
 (defvar parse-separator (search (format nil "~%~%") input))
