@@ -26,3 +26,17 @@
     (loop for line = (read-line s nil)
           while line
           collect line)))
+
+(defun all (pred lst)
+  (if (not (cdr lst))
+      (funcall pred (car lst))
+      (and (funcall pred (car lst))
+         (all pred (cdr lst)))))
+
+(defun remove-nth (n lst)
+  (if (or (null lst) (= n 0))
+      (cdr lst)
+      (cons (car lst)
+            (remove-nth
+             (- n 1)
+             (cdr lst)))))
