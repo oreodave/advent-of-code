@@ -17,7 +17,11 @@
         nil))
 
   (let* ((char-list (string-to-clist input))
-         (unique-check (mapcar (lambda (x y z w) (is-unique (list x y z w))) char-list (cdr char-list) (cdr (cdr char-list)) (cdr (cdr (cdr char-list))))))
+         ;; List of is-unique on 4 character subsequences of input
+         (unique-check (mapcar (lambda (x y z w) (is-unique (list x y z w)))
+                          char-list (cdr char-list)
+                          (cdr (cdr char-list))
+                          (cdr (cdr (cdr char-list))))))
     (calculate-position (position t unique-check))))
 
 (format t "First round: ~a~%" (first-round input))
