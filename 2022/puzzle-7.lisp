@@ -6,7 +6,7 @@
   "Split each LINE in LINES by space"
   (mapcar (lambda (line)
        (mapcar #'clist-to-string
-          (split-completely (string-to-clist line) #\Space)))
+          (split-by-completely (string-to-clist line) #\Space)))
      lines))
 
 (defun is-token-cmd? (token)
