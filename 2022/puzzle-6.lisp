@@ -1,13 +1,13 @@
+(load "lib.lisp")
+
 (defvar input (with-input-from-string (s (uiop:read-file-string "6-input"))
                 (read-line s nil)))
 
 (defun is-unique (lst)
+  "If LST has no duplicates, returns true."
   (or (null lst)
      (and (not (member (car lst) (cdr lst)))
         (is-unique (cdr lst)))))
-
-(defun string-to-list (str)
-  (loop for char across str collect char))
 
 (defun first-round (input)
   (defun calculate-position (nth)
@@ -16,7 +16,7 @@
         (+ nth 4)
         nil))
 
-  (let* ((char-list (string-to-list input))
+  (let* ((char-list (string-to-clist input))
          (unique-check (mapcar (lambda (x y z w) (is-unique (list x y z w))) char-list (cdr char-list) (cdr (cdr char-list)) (cdr (cdr (cdr char-list))))))
     (calculate-position (position t unique-check))))
 
@@ -39,8 +39,7 @@
         (+ nth 14)
         nil))
 
-
-  (let* ((char-list (string-to-list input))
+  (let* ((char-list (string-to-clist input))
          (unique-check (mapcar #'is-unique (successive-by char-list 14))))
     (calculate-position (position t unique-check))))
 
