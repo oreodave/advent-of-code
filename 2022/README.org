@@ -22,7 +22,7 @@ quicklisp, so in most common lisp systems).
 Each "bag" in the data is separated by two newlines, so let's define
 that as a constant.
 #+begin_src lisp
-(defvar *sep (format nil "~%~%"))
+(defparameter *sep (format nil "~%~%"))
 #+end_src
 *** Parse procedure for any one bag
 A bag is a set of lines of numbers representing the food in that bag.
@@ -100,3 +100,18 @@ the first really involved problem.  I need to make a stack machine,
 interpreting an initial layout of memory and an algorithm to perform
 on the machine.  Very interesting.
 
+Turns out its pretty simple: just the parsing of the initial state at
+the top of an input was a bit weird.  The actual command parser was
+very simple as it had a static format, and we could do figure out the
+command at parse time.
+
+* Problem 6
+Just looking for the first 4 length sequence of unique characters in a
+stream.  Way easier than I expected, closer to problem 1 than 5.
+
+* Problem 7
+I'm stumped here, and I feel it's because of common lisp.  Tree
+structures with back references to parents are essentially impossible
+because Lisp hasn't really got the concept of a pointer.  I need to
+find a way to emulate or construct directory structures in a recursive
+manner in Lisp.
