@@ -27,6 +27,8 @@
           while line
           collect line)))
 
+(defun id (x) x)
+
 (defun all (pred lst)
   (if (not (cdr lst))
       (funcall pred (car lst))
