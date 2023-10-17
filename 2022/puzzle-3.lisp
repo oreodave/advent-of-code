@@ -1,3 +1,4 @@
+(load "lib.lisp")
 (defvar input (uiop:read-file-string "3-input"))
 
 (defun split-string-in-two (s)
@@ -9,9 +10,6 @@
                    for line = (read-line s nil)
                    until (null line)
                    collect (split-string-in-two line))))
-
-(defun string-to-clist (str)
-  (loop for char across str collect char))
 
 (defun common-types (s1 s2)
   (car (intersection

@@ -16,7 +16,8 @@
       collect
       (let ((opponent (subseq strategy 0 1))
             (yours (subseq strategy 2 3)))
-        (list (sensible-convert-input opponent) (sensible-convert-input yours))))))
+        (list (sensible-convert-input opponent)
+              (sensible-convert-input yours))))))
 
 (loop
   for round in rounds
