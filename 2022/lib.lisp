@@ -29,12 +29,6 @@
 
 (defun id (x) x)
 
-(defun all (pred lst)
-  (if (not (cdr lst))
-      (funcall pred (car lst))
-      (and (funcall pred (car lst))
-         (all pred (cdr lst)))))
-
 (defun remove-nth (n lst)
   (if (or (null lst) (= n 0))
       (cdr lst)

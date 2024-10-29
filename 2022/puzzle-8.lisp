@@ -23,7 +23,7 @@
 
 (defun is-visible? (x y)
   (if (or (= x 0) (= x (- n-trees 1))
-         (= y 0) (= y (- n-trees 1)))
+          (= y 0) (= y (- n-trees 1)))
       t
       (let* ((tree (get-tree x y))
              (lt-tree? (lambda (a) (< a tree)))
@@ -34,8 +34,8 @@
              (col-top (subseq col 0 y))
              (col-bottom (subseq col (+ y 1))))
         (some #'id
-              (mapcar (lambda (x) (all lt-tree? x))
-                 (list row-left row-right col-top col-bottom))))))
+           (mapcar (lambda (x) (every lt-tree? x))
+              (list row-left row-right col-top col-bottom))))))
 
 (defun how-many-visible ()
   (loop
