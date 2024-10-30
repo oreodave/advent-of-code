@@ -6,25 +6,25 @@
       (string clist)
       (coerce clist 'string)))
 
-(defun split-by-first (lst delim)
+(defun split-by-first (lst delim &optional (test #'eq))
   "Splits LST by the first instance of DELIM"
-  (let ((pos (position delim lst)))
+  (let ((pos (position delim lst :test test)))
     (if pos
         (list (subseq lst 0 pos) (subseq lst (+ pos 1)))
         (error (format nil "No instance of ~a was found in ~a" delim lst)))))
 
-(defun split-by-completely (lst delim)
+(defun split-by-completely (lst delim &optional (test #'eq))
   (cond
     ((or (null lst) (not (cdr lst)))
      (list (car lst)))
-    ((not (member delim lst))
+    ((not (member delim lst :test test))
      (list lst))
     (t
      (loop
-       for (start rest) = (split-by-first lst delim)
-         then (split-by-first rest delim)
+       for (start rest) = (split-by-first lst delim test)
+         then (split-by-first rest delim test)
        collect start
-       if (not (member delim rest))
+       if (not (member delim rest :test test))
          collect rest
          and do (loop-finish)))))
 
