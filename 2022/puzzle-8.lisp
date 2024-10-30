@@ -33,7 +33,7 @@
              (col (get-column x))
              (col-top (subseq col 0 y))
              (col-bottom (subseq col (+ y 1))))
-        (some #'id
+        (some #'identity
            (mapcar (lambda (x) (every lt-tree? x))
               (list row-left row-right col-top col-bottom))))))
 
