@@ -2,5 +2,4 @@
 #+author: Aryadev Chavali
 #+date: 2023-10-17
 
-My solutions to the advent of code for each year.  I dunno what
-languages I'll use per year ngl.
+My solutions to the advent of code, organised by year.
