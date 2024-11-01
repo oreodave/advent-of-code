@@ -18,11 +18,11 @@ I want to do this advent of code in more than one language if possible.
 Here is a list of all the languages I am aware of enough to program in,
 ordered from least to most confidence:
 
-- (0) POSIX Shell
-- (0) Haskell
-- (0) Ocaml
+- (1) POSIX Shell
+- (2) Haskell
+- (3) Ocaml
+- (4) Racket
 - (0) Rust
-- (0) Racket
 - (0) JavaScript/TypeScript
 - (0) Common Lisp
 - (0) C
