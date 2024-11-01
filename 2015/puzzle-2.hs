@@ -26,3 +26,7 @@ main = do
   let ribbon = sum $ map total_ribbon dimensions
   putStrLn $ "Round 1: " ++ (show areas)
   putStrLn $ "Round 2: " ++ (show ribbon)
+
+-- Local Variables:
+-- compile-command: "ghc puzzle-2.hs && ./puzzle-2"
+-- End:

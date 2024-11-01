@@ -25,3 +25,7 @@ do
 done < <(printf "%s" $text | tr -d '\n')
 
 echo "Round 2:" $pos
+
+# Local Variables:
+# compile-command: "sh puzzle-1.sh"
+# End:
