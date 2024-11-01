@@ -22,8 +22,8 @@ ordered from least to most confidence:
 - (2) Haskell
 - (3) Ocaml
 - (4) Racket
-- (0) Rust
-- (0) JavaScript/TypeScript
+- (5) Rust
+- (6) JavaScript/TypeScript
 - (0) Common Lisp
 - (0) C
 - (0) Python
