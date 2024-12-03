@@ -5,7 +5,16 @@
                     appending `((_ ,f)))
          _)))
 
-(defun zip (a b)
-  (loop for i in a
-        for j in b
-        collect (cons i j)))
+(defun search-all (substr str &optional acc len)
+  (let ((x (search substr str))
+        (len (or len 0)))
+    (if (null x)
+        (reverse acc)
+        (search-all substr (subseq str (1+ x))
+                    (cons (+ x len) acc)
+                    (+ len x 1)))))
+
+  (defun zip (a b)
+    (loop for i in a
+          for j in b
+          collect (cons i j)))
