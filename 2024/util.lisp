@@ -2,7 +2,7 @@
   (if (null functions)
       first
       `(let* ,(loop :for f :in (cons first functions)
-                    appending `((_ ,f)))
+                    :appending `((_ ,f)))
          _)))
 
 (defun search-all (substr str &optional acc len)

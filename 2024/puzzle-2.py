@@ -22,21 +22,21 @@ print(f"Round 1: {len(good_levels)}")
 
 def check_two_levels(x, y, decreasing):
     diff = abs(x - y)
-    return not ((decreasing and x < y) or (not decreasing and x > y) or not (diff <= 3 and diff >= 1))
+    return not ((decreasing and x < y)\
+           or (not decreasing and x > y) \
+           or not (diff <= 3 and diff >= 1))
 
 def is_good_level_2(level):
     # 1) Is decreasing
     # 2) Sliding window of two cells (x, y) => 1 <= |x-y| <= 3
     # 3) Can remove any one item to make it safe
-    ret = is_good_level_1(level)
-    if not ret:
-        # Consider slices of the level and check if they're good
-        slices = [level[:i] + level[i + 1:] for i in range(len(level))]
-        for s in slices:
-            if is_good_level_1(s):
-                return True
-    else:
+    if is_good_level_1(level):
         return True
+    # Consider slices of the level and check if they're good
+    slices = [level[:i] + level[i + 1:] for i in range(len(level))]
+    for s in slices:
+        if is_good_level_1(s):
+            return True
     return False
 
 good_levels = [level for level in levels if is_good_level_2(level)]

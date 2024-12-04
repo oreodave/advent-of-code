@@ -3,19 +3,19 @@
 (defparameter input (uiop:read-file-string "3-input"))
 
 (defun is-good-mul (str)
-  (let* ((delimiter (search "," str))
-         (end (search ")" str)))
-    (if (or (null delimiter) (null end)
-            (> delimiter end)
-            (not (eq #\( (char str 3))))
-        nil
-        (let* ((first-arg (subseq str 4 delimiter))
-               (second-arg (subseq str (1+ delimiter) end)))
-          (and (every #'digit-char-p first-arg)
-               (every #'digit-char-p second-arg))))))
-
-(defun trim-mul (str)
-  (subseq str 0 (1+ (search ")" str))))
+  (let ((start (search "(" str))
+        (middle (search "," str))
+        (end (search ")" str)))
+    (and (not (null start)) (not (null middle)) (not (null end))
+         ;; mul( <- 3 character
+         (eq start 3)
+         ;; Simple to understand
+         (< start end)
+         (< start middle)
+         (< middle end)
+         ;; Make sure the arguments are purely numbers
+         (every #'digit-char-p (subseq str (1+ start) middle))
+         (every #'digit-char-p (subseq str (1+ middle) end)))))
 
 (defun parse-mul (str)
   (let ((start (search "(" str))
@@ -28,9 +28,11 @@
   (let ((possible (search-all "mul" line)))
     (--> (cdr possible)
          (append _ (list (length line)))
+         ;; index of mul -> (position substring)
          (mapcar (lambda (z1 z2) (cons z1 (subseq line z1 z2))) possible _)
+         ;; remove any bad muls
          (remove-if-not (lambda (x) (is-good-mul (cdr x))) _)
-         (mapcar (lambda (x) (cons (car x) (trim-mul (cdr x)))) _)
+         ;; parse muls
          (mapcar (lambda (x) (cons (car x) (parse-mul (cdr x)))) _))))
 
 (format t "Round 1: ~a~%"
@@ -40,11 +42,10 @@
 (defun parse-input-conds (input)
   (let ((dos (search-all "do()" input))
         (donts (search-all "don't()" input)))
-    (cons
-     '(do . 0)
-     (sort (append (mapcar (lambda (x) (cons 'do x)) dos)
-                   (mapcar (lambda (x) (cons 'dont x)) donts))
-           (lambda (x y) (< (cdr x) (cdr y)))))))
+    (--> (append (mapcar (lambda (x) (cons 'do x)) dos)
+                 (mapcar (lambda (x) (cons 'dont x)) donts))
+         (sort _ (lambda (x y) (< (cdr x) (cdr y))))
+         (cons '(do . 0) _))))
 
 (defun current-cond (pos conds)
   (caar (last (remove-if (lambda (x) (> (cdr x) pos)) conds))))
