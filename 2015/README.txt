@@ -4,19 +4,9 @@
                           ___________________
 
 
-From 01/11/2024 to 30/11/2024 I will be attempting to finish 2015's
-advent of code in preparation for 2024's AOC.
-
-I _should_ spend at most one day per challenge but I refuse to use
-external solutions so I may spend more time on each challenge, hence the
-deadline being 30/11 rather than 25/11.  Of course, I am not restricting
-myself to doing one challenge a day - that would be a waste of my time
-considering they're all released.  I doubt, however, that I'll be able
-to finish _earlier_ than my deadline.
-
-I want to do this advent of code in more than one language if possible.
-Here is a list of all the languages I am aware of enough to program in,
-ordered from least to most confidence:
+I want to do this advent of code in more than one language if
+possible.  Here is a list of all the languages I am aware of enough to
+program in, ordered from least to most confidence:
 
 - (1) POSIX Shell
 - (2) Haskell
